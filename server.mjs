@@ -1,6 +1,7 @@
 //Import
 import express from "express";
 import dotenv from "dotenv";
+import connectDB from './db/conn.mjs';
 import { globalError } from "./middleware/errorMiddleware.mjs";
 
 //Setups
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 //Middleware
 app.use(express.json());
+connectDB();
 //Routes
 
 //ErrMiddleware
