@@ -1,6 +1,7 @@
 //Import
 import express from "express";
 import dotenv from "dotenv";
+import { globalError } from "./middleware/errorMiddleware.mjs";
 
 //Setups
 dotenv.config();
@@ -11,9 +12,7 @@ app.use(express.json());
 //Routes
 
 //ErrMiddleware
-app.use((err, _req, res, next )=>{
-  res.status(500).json({msg:`Server Error`})
-})
+app.use(globalError);
 
 //Listener
 app.listen(PORT, () => {
