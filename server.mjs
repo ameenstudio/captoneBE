@@ -1,10 +1,11 @@
 //Import
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors"
 import connectDB from './db/conn.mjs';
 import { globalError } from "./middleware/errorMiddleware.mjs";
 import spoolRoutes from './routes/spoolRoutes.mjs'
-import cors from 'cors'
+
 
 
 //Setups
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 //Middleware
 app.use(express.json());
+app.use(cors())
 connectDB();
 //Routes
 app.use('/api/spool', spoolRoutes)
