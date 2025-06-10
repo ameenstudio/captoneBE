@@ -5,6 +5,7 @@ import cors from "cors"
 import connectDB from './db/conn.mjs';
 import { globalError } from "./middleware/errorMiddleware.mjs";
 import spoolRoutes from './routes/spoolRoutes.mjs'
+import userRoutes from './routes/userRoutes.mjs'
 
 
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(cors())
 connectDB();
 //Routes
+app.use('/api/user', userRoutes)
 app.use('/api/spool', spoolRoutes)
 //ErrMiddleware
 app.use(globalError);
