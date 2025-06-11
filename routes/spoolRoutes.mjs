@@ -1,29 +1,35 @@
-import express from 'express'
-import Spool from '../models/spoolSchema.mjs'
+
+
+import express from "express";
+import Spool from "../models/spoolSchema.mjs";
+
 const router = express.Router();
 
-// Create
-router.post('/', async (req, res) => {
+// Create a new spool
+router.post("/", async (req, res) => {
     try {
+        console.log("Received data:", req.body); // Debugging log
         const newSpool = await Spool.create(req.body);
-        res.json(newSpool);
+        res.status(201).json(newSpool);
     } catch (err) {
+        console.error("Database error:", err);
         res.status(500).json({ error: err.message });
     }
 });
 
-// Read
-router.get('/', async (req, res) => {
+// Get all spools
+router.get("/", async (req, res) => {
     try {
-        const allSpools = await Spool.find(req.body);
+        const allSpools = await Spool.find();
         res.json(allSpools);
     } catch (err) {
+        console.error("Database error:", err);
         res.status(500).json({ error: err.message });
     }
 });
 
-// Update
-router.put('/:id', async (req, res) => {
+// Update spool by ID
+router.put("/:id", async (req, res) => {
     try {
         const updatedSpool = await Spool.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedSpool) {
@@ -31,12 +37,13 @@ router.put('/:id', async (req, res) => {
         }
         res.json(updatedSpool);
     } catch (err) {
+        console.error("Database error:", err);
         res.status(500).json({ error: err.message });
     }
 });
 
-// Delete
-router.delete('/:id', async (req, res) => {
+// Delete spool by ID
+router.delete("/:id", async (req, res) => {
     try {
         const deletedSpool = await Spool.findByIdAndDelete(req.params.id);
         if (!deletedSpool) {
@@ -44,12 +51,9 @@ router.delete('/:id', async (req, res) => {
         }
         res.json(deletedSpool);
     } catch (err) {
+        console.error("Database error:", err);
         res.status(500).json({ error: err.message });
     }
 });
-
-
-
-
 
 export default router;
