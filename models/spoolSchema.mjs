@@ -35,4 +35,6 @@ const spoolSchema = new mongoose.Schema({
   }
 });
 
+spoolSchema.index({ material: 1, color: 1 }); // Compound index for material and color queries
+
 export default mongoose.model("Spool", spoolSchema)
